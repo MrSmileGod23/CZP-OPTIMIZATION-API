@@ -13,29 +13,32 @@ class UserController extends Controller
 {
     public function login(Request $request){
 
-
-            $login = $request->login;
-            $password = $request->password;
-
-
         $validator=Validator::make($request->all(),[
             'login' => 'required',
             'password' => 'required'
         ]);
 
-        if ($validator->fails())
+            if ($user = User::where(['login' => $request->login], ['password' => $request->password])->first()) {
+                return response()->json([
+                    'id' => $user->id,
+                    'token' => $user->generateToken()
+                ], 200);
+            }else{
+                return response()->json(['errors' => [
+                    'code' => 403,
+                    'message' => 'Логин или пароль неправильный',
+                ]], 403);
+            }
+
+        if ($validator->fails()){
             return response()->json(['errors' => [
                 'code' => 422,
                 'message' => 'Validation error',
                 'errors' => $validator->errors()
             ]], 422);
-
-        if ($user = User::where(['login' => $login],['password' => $password])->first()){
-            return response()->json([
-                'id'=>$user->id,
-                'token' => $user->generateToken()
-            ], 200);
         }
+
+
 
     }
 }
