@@ -23,6 +23,12 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function generateToken()
+    {
+        $this->api_token = Str::uuid();
+        $this->save();
+        return $this->api_token;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -30,7 +36,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'api_token',
     ];
 
     /**
@@ -42,11 +48,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function generateToken()
-    {
-        $this->api_token = Str::uuid();
-        $this->save();
-        return $this->api_token;
-    }
+
 
 }
