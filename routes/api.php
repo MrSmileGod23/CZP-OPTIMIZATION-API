@@ -20,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login',[UserController::class,'login']);
+
+Route::middleware('api_token')->group(function () {
+    Route::get('/logout', [UserController::class, 'logout']);
+});

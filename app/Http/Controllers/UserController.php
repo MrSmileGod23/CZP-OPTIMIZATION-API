@@ -17,18 +17,6 @@ class UserController extends Controller
             'login' => 'required',
             'password' => 'required'
         ]);
-
-            if ($user = User::where(['login' => $request->login], ['password' => $request->password])->first()) {
-                return response()->json([
-                    'token' => $user->generateToken()
-                ], 200);
-            }else{
-                return response()->json(['errors' => [
-                    'code' => 403,
-                    'message' => 'Логин или пароль неправильный',
-                ]], 403);
-            }
-
         if ($validator->fails()){
             return response()->json(['errors' => [
                 'code' => 422,
@@ -37,7 +25,26 @@ class UserController extends Controller
             ]], 422);
         }
 
-
-
+            if ($user = User::where(['login' => $request->login,'password' => $request->password])->first()) {
+                return response()->json([
+                    'token' => $user->generateToken()
+                ], 200);
+            }
+            else{
+                return response()->json(['errors' => [
+                    'code' => 403,
+                    'message' => 'Логин или пароль неправильный',
+                ]], 403);
+            }
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json(['data' => [
+            'code' => 200,
+            'message' => 'Вы вышли',
+        ]], 200);
+    }
+
 }
