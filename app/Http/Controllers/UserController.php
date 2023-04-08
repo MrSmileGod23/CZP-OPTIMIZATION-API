@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Str;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -27,9 +26,8 @@ class UserController extends Controller
         }
 
             if ($user = User::where(['login' => $request->login,'password' => $request->password])->first()) {
-                $token = JWTAuth::fromUser(Auth::user());
                 return response()->json([
-                    'token' => compact($token),
+                    'token' => $user->generateToken(),
                     'role' => $user->role
                 ], 200);
             }
