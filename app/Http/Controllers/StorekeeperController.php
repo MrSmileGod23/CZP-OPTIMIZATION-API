@@ -16,4 +16,30 @@ class StorekeeperController extends Controller
             ]], 200);
         }
     }
+
+    public function switch(Request $request)
+    {
+        if ($pass = WaitingDriver::where(['PassNumber' => $request->PassNumber])->first()) {
+            if ($pass->status === 'Ожидание') {
+                if ($pass->delete()) {
+                    $pass->save();
+                    return response()->json(['data' => [
+                        'code' => 200,
+                        'message' => 'Был удален'
+                    ]], 200);
+                } else {
+                    return response()->json(['error' => [
+                        'code' => 403,
+                        'message' => 'Статус не был поменян',
+                    ]], 403);
+                }
+            } else {
+                return response()->json(['error' => [
+                    'code' => 403,
+                    'message' => 'Пропуск не найден',
+
+                ]], 403);
+            }
+        }
+    }
 }

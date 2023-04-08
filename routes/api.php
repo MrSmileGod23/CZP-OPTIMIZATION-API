@@ -32,6 +32,7 @@ Route::middleware('api_token')->group(function () {
 // маршруты только для кладовщика
 Route::middleware(['role:Storekeeper','api_token'])->group(function () {
     Route::get('/storekeeper/waiting/drivers',[StorekeeperController::class,'index']);
+    Route::post('/storekeeper/waiting/drivers',[StorekeeperController::class,'switch']);
 });
 
 // маршруты только для экономиста
