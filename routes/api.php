@@ -41,12 +41,11 @@ Route::middleware(['role:Economist','api_token'])->group(function () {
 
 // маршруты только для охранника
 Route::middleware(['role:Guard','api_token'])->group(function () {
-    Route::get('/board/guard',[BoardController::class,'guard']);
-    Route::get('/board/storekeeper',[BoardController::class,'storekeeper']);
     Route::get('/guard/count/drivers',[GuardController::class,'drivers']);
     Route::get('/guard/passes',[GuardController::class,'index']);
     Route::post('/guard/pass',[GuardController::class,'switch']);
 });
 
 
-
+Route::get('/board/guard',[BoardController::class,'guard']);
+Route::get('/board/storekeeper',[BoardController::class,'storekeeper']);
