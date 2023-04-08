@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ProductType');
             $table->float('ProductVolume');
             $table->enum('MetricUnit',['КГ','Т']);
+            $table->enum('status',['Не потвержден','Потвержден']);
             $table->timestamps();
         });
     }
