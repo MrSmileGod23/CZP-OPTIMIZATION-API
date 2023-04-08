@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\EconomistController;
 use App\Http\Controllers\GuardController;
+use App\Http\Controllers\StorekeeperController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +31,7 @@ Route::middleware('api_token')->group(function () {
 
 // маршруты только для кладовщика
 Route::middleware(['role:Storekeeper','api_token'])->group(function () {
-
+    Route::get('/storekeeper/waiting/drivers',[StorekeeperController::class,'index']);
 });
 
 // маршруты только для экономиста
@@ -43,3 +45,7 @@ Route::middleware(['role:Guard','api_token'])->group(function () {
     Route::get('/guard/passes',[GuardController::class,'index']);
     Route::post('/guard/pass',[GuardController::class,'switch']);
 });
+
+
+Route::get('/board/guard',[BoardController::class,'guard']);
+Route::get('/board/storekeeper',[BoardController::class,'storekeeper']);
