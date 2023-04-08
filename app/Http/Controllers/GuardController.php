@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class GuardController extends Controller
 {
+    public function drivers(){
+        $count = DB::table('waiting_drivers')->count();
+        return response()->json(['data' => [
+            'code' => 200,
+            'message' => 'Кол-во машин на стоянке',
+            'count' => $count ,
+        ]], 200);
+    }
     public function index(){
         if ($pass = Pass::where('status','Отсутствует')->orWhere('status','Прибыл')->get()){
             return response()->json(['data' => [
@@ -70,6 +78,11 @@ class GuardController extends Controller
                         'message' => 'В очереди уже 7 водителей',
                     ]], 403);
                 }
+            }else{
+                return response()->json(['error' => [
+                    'code' => 403,
+                    'message' => 'Уже стоит статус Ожидание',
+                ]], 403);
             }
         }else{
             return response()->json(['error' => [

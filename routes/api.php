@@ -39,6 +39,7 @@ Route::middleware(['role:Economist','api_token'])->group(function () {
 
 // маршруты только для охранника
 Route::middleware(['role:Guard','api_token'])->group(function () {
+    Route::get('/guard/count/drivers',[GuardController::class,'drivers']);
     Route::get('/guard/passes',[GuardController::class,'index']);
     Route::post('/guard/pass',[GuardController::class,'switch']);
 });
