@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
         ],
     ];
     protected $routeMiddleware = [
-        // ...
+        'role' => \App\Http\Middleware\CheckRole::class,
         'api_token' => \App\Http\Middleware\ApiTokenMiddleware::class,
     ];
     /**

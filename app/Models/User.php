@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'login',
         'password',
+        'role'
     ];
 
     public function generateToken()

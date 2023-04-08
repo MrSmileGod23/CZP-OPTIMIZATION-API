@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('login');
             $table->string('password');
+            $table->enum('role',['Storekeeper','Economist','Guard']);
             $table->string('api_token',255)->nullable();
             $table->timestamps();
         });

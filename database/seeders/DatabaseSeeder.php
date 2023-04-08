@@ -14,8 +14,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'login' => 'Storekeeper1',
-            'password' => 'Storekeeper1',
+            [
+                'login' => 'Storekeeper',
+                'password' => 'Storekeeper',
+                'role' => 'Storekeeper'
+            ],
+            [
+                'login' => 'Economist',
+                'password' => 'Economist',
+                'role' => 'Economist'
+            ],
+            [
+                'login' => 'Guard',
+                'password' => 'Guard',
+                'role' => 'Guard'
+            ],
         ]);
     }
 }

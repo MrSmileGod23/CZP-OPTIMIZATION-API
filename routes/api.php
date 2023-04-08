@@ -24,3 +24,18 @@ Route::post('/login',[UserController::class,'login']);
 Route::middleware('api_token')->group(function () {
     Route::get('/logout', [UserController::class, 'logout']);
 });
+
+// маршруты только для кладовщика
+Route::middleware(['role:Storekeeper','api_token'])->group(function () {
+
+});
+
+// маршруты только для экономиста
+Route::middleware(['auth', 'role:Economist'])->group(function () {
+
+});
+
+// маршруты только для охранника
+Route::middleware(['auth', 'role:Guard'])->group(function () {
+
+});
