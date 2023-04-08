@@ -33,6 +33,7 @@ Route::middleware(['role:Storekeeper','api_token'])->group(function () {
 
 // маршруты только для экономиста
 Route::middleware(['role:Economist','api_token'])->group(function () {
+    Route::get('/economist/passes',[EconomistController::class,'index']);
     Route::post('/economist/pass',[EconomistController::class,'store']);
 });
 
