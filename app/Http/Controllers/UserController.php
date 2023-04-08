@@ -27,7 +27,8 @@ class UserController extends Controller
 
             if ($user = User::where(['login' => $request->login,'password' => $request->password])->first()) {
                 return response()->json([
-                    'token' => $user->generateToken()
+                    'token' => $user->generateToken(),
+                    'role' => $user->role
                 ], 200);
             }
             else{

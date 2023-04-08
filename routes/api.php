@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EconomistController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +32,11 @@ Route::middleware(['role:Storekeeper','api_token'])->group(function () {
 });
 
 // маршруты только для экономиста
-Route::middleware(['auth', 'role:Economist'])->group(function () {
-
+Route::middleware(['role:Economist','api_token'])->group(function () {
+    Route::post('/economist/pass',[EconomistController::class,'store']);
 });
 
 // маршруты только для охранника
-Route::middleware(['auth', 'role:Guard'])->group(function () {
+Route::middleware(['role:Guard','api_token'])->group(function () {
 
 });
