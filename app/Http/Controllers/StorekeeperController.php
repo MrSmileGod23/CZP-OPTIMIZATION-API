@@ -21,8 +21,7 @@ class StorekeeperController extends Controller
     {
         if ($pass = WaitingDriver::where(['PassNumber' => $request->PassNumber])->first()) {
             if ($pass->status === 'Ожидание') {
-                if ($pass->delete()) {
-                    $pass->save();
+                if (WaitingDriver::destroy($pass->id)) {
                     return response()->json(['data' => [
                         'code' => 200,
                         'message' => 'Был удален'
