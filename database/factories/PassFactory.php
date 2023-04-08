@@ -30,7 +30,7 @@ class PassFactory extends Factory
         return [
             'PassNumber' =>"5000000".''.fake()->biasedNumberBetween(min:1000,max: 20000),
             'CarNumber' => fake()->randomElement($array = array ('А', 'В', 'Е', 'К', 'М', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')).''.fake()->randomDigit().''.fake()->randomDigit().''.fake()->randomDigit().''.fake()->randomElement($array = array ('А', 'В', 'Е', 'К', 'М', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')).''.fake()->randomElement($array = array ('А', 'В', 'Е', 'К', 'М', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')).''.fake()->randomElement($array = array ('74','174','774')),
-            'FIO' =>fake()->lastName.' '.fake()->firstNameMale().' '.fake()->middleNameMale() ,
+            'FIO' =>fake()->lastName.' '.fake()->firstName().' '.fake()->middleName() ,
             'SenderName' => fake()->randomElement($array = array ('ДЛЗ ООО','КАРАБАШМЕДЬ АО','ММК-ЛМЗ ООО','ТОЧИНВЕСТ ЦИНК ООО','СУМЗ АО')),
             'CheckpointNumber' => 'КПП № 6' ,
             'ProductType' => fake()->randomElement($array = array ('ЦИНК ЦВ0 ПАКЕТ','КЛИНКЕР','СПЛАВ ЦА04 БЛОК 1Т','СПЛАВ ЦА08 БЛОК 1Т','СПЛАВ ЦА06 БЛОК 1Т')),

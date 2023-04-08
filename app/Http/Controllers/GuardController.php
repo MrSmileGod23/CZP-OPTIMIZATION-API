@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pass;
+use App\Models\WaitingDriver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GuardController extends Controller
 {
     public function index(){
-        if ($pass = Pass::where('status',['Отсутствует','Прибыл'])->get()){
+        if ($pass = Pass::where('status','Отсутствует')->orWhere('status','Прибыл')->get()){
             return response()->json(['data' => [
                 'code' => 200,
                 'message' => 'Все пропуска',
@@ -28,16 +30,45 @@ class GuardController extends Controller
                         'passNumber' => $pass -> PassNumber,
                         'status' => $pass -> status
                     ]], 200);
+                }else{
+                    return response()->json(['error' => [
+                        'code' => 403,
+                        'message' => 'Статус не был поменян',
+                    ]], 403);
                 }
             }else if ($pass -> status === 'Прибыл'){
-                if($pass -> status = 'Ожидание'){
-                    $pass->save();
-                    return response()->json(['data' => [
-                        'code' => 200,
-                        'message' => 'Статус был поменян на Ожидание',
-                        'passNumber' => $pass -> PassNumber,
-                        'status' => $pass -> status
-                    ]], 200);
+                $count = DB::table('waiting_drivers')->count();
+                if ($count < 7) {
+                    if ($pass->status = 'Ожидание' and WaitingDriver::create([
+                            'PassNumber' => $pass->PassNumber,
+                            'CarNumber'=> $pass->CarNumber,
+                            'FIO' => $pass->FIO,
+                            'SenderName' => $pass->SenderName,
+                            'CheckpointNumber' => $pass->CheckpointNumber,
+                            'ProductType' => $pass->ProductType,
+                            'ProductVolume' => $pass->ProductVolume,
+                            'MetricUnit' => $pass->MetricUnit,
+                            'status' => $pass->status
+                        ])) {
+                        $pass->save();
+                        return response()->json(['data' => [
+                            'code' => 200,
+                            'message' => 'Статус был поменян на Ожидание',
+                            'passNumber' => $pass->PassNumber,
+                            'status' => $pass->status
+                        ]], 200);
+                    } else if ($pass->status = 'Ожидание') {
+                        return response()->json(['error' => [
+                            'code' => 403,
+                            'message' => 'Статус не был поменян',
+                        ]], 403);
+                    }
+                }
+                else{
+                    return response()->json(['error' => [
+                        'code' => 403,
+                        'message' => 'В очереди уже 7 водителей',
+                    ]], 403);
                 }
             }
         }else{
