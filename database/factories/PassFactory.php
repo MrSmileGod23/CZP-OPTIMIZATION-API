@@ -36,6 +36,7 @@ class PassFactory extends Factory
             'ProductType' => fake()->randomElement($array = array ('ЦИНК ЦВ0 ПАКЕТ','КЛИНКЕР','СПЛАВ ЦА04 БЛОК 1Т','СПЛАВ ЦА08 БЛОК 1Т','СПЛАВ ЦА06 БЛОК 1Т')),
             'ProductVolume' => fake()->biasedNumberBetween(min: 1,max: 200),
             'MetricUnit' => fake()->randomElement($array = array ('КГ','Т')),
+            'status' => fake()->randomElement($array = array ('Отсутствует'))
         ];
     }
 }

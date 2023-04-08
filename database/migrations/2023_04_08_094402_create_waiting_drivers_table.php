@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('ProductType');
             $table->float('ProductVolume');
             $table->enum('MetricUnit', ['КГ', 'Т']);
-            $table->enum('status', ['Не потвержден', 'Потвержден']);
+            $table->enum('status', ['Отсутствует', 'Прибыл', 'Ожидание']);
             $table->integer('queue');
             $table->enum('point', ['Северный', 'Южный']);
             $table->timestamps();

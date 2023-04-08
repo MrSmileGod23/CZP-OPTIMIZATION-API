@@ -7,15 +7,6 @@ use Illuminate\Http\Request;
 
 class EconomistController extends Controller
 {
-    public function index(){
-        if ($pass = Pass::all()){
-            return response()->json(['data' => [
-                'code' => 200,
-                'message' => 'Все пропуска',
-                'passes' => $pass
-            ]], 200);
-        }
-    }
 
     public function store(){
 

@@ -16,6 +16,7 @@ class Pass extends Model
         'CheckpointNumber',
         'ProductType',
         'ProductVolume',
-        'MetricUnit'
+        'MetricUnit',
+        'status'
     ];
 }
