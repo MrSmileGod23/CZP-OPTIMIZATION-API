@@ -20,16 +20,16 @@ class EconomistController extends Controller
     public function store(){
 
         $pass = [
-            'PassNumber' =>'5000000429570',
-            'CarNumber' => 'В029МХ/797',
-            'FIO' => 'Коновалов Богдан Алексеевич',
-            'SenderName' => 'ДЛЗ ООО',
-            'CheckpointNumber' => 'КПП № 6' ,
-            'ProductType' => 'ЦИНК ЦВ0 ПАКЕТ',
-            'ProductVolume' => '20000' ,
-            'MetricUnit' => 'Т' ,
+                'PassNumber' =>'5000000429570',
+                'CarNumber' => 'В029МХ/797',
+                'FIO' => 'Коновалов Богдан Алексеевич',
+                'SenderName' => 'ДЛЗ ООО',
+                'CheckpointNumber' => 'КПП № 6' ,
+                'ProductType' => 'ЦИНК ЦВ0 ПАКЕТ',
+                'ProductVolume' => '20000' ,
+                'MetricUnit' => 'Т' ,
         ];
-        if (Pass::create($pass)){
+        if (Pass::factory()->create()){
             return response()->json(['data' => [
                 'code' => 200,
                 'message' => 'Пропуск успешно добавлен'
