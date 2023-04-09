@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\WaitingDriver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class StorekeeperController extends Controller
 {
     public function index(){
         $smallTrucks = [];
         $bigTrucks = [];
+        $tTrucks = [];
+        $kgTrucks = [];
         $trucks = WaitingDriver::all();
         // Разбиваем грузовики на две части: маленькие и большие
         foreach ($trucks as $truck) {
             if ($truck->MetricUnit === "T") {
                 $truck->ProductVolume * 1000;
+                $tTrucks[] = $truck;
+            }
+            else{
+                $kgTrucks[] = $truck;
             }
         }
-
-        foreach ($trucks as $truck) {
+        $arrayTrucks = Arr::collapse([[$tTrucks],[$kgTrucks]]);
+        foreach ($arrayTrucks as $truck) {
                 if ($truck->ProductVolume <= 15000) {
                     $smallTrucks[] = $truck;
                 } else {
