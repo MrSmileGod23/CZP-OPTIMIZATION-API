@@ -13,14 +13,17 @@ class StorekeeperController extends Controller
         $trucks = WaitingDriver::all();
         // Разбиваем грузовики на две части: маленькие и большие
         foreach ($trucks as $truck) {
-            if ($truck->MetricUnit === "T"){
-                $truck->ProductVolume*1000;
+            if ($truck->MetricUnit === "T") {
+                $truck->ProductVolume * 1000;
+            }
+        }
+
+        foreach ($trucks as $truck) {
                 if ($truck->ProductVolume <= 15000) {
                     $smallTrucks[] = $truck;
                 } else {
                     $bigTrucks[] = $truck;
                 }
-            }
         }
 
         // Сортируем каждую часть по тоннажу
